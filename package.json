@@ -3,7 +3,7 @@
   "displayName": "url-format",
   "description": "format url",
   "publisher": "MilkerLiu",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -17,7 +17,11 @@
     "commands": [
       {
         "command": "url.format",
-        "title": "Url: Format"
+        "title": "Url: Format (Format url to a json)"
+      },
+      {
+        "command": "url.generate",
+        "title": "Url: Generate (Generate url from a json)"
       },
       {
         "command": "url.decode",

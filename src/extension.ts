@@ -14,6 +14,20 @@ export function activate(context: vscode.ExtensionContext) {
     });
     context.subscriptions.push(disposable);
   }
+  
+  {
+    let disposable = vscode.commands.registerCommand("url.generate", () => {
+      check().then(({ editor, text }) => {
+        editor.edit((builder) => {
+          builder.insert(
+            editor.selection.end,
+            `\n${generateUrl(text)}`
+          );
+        });
+      });
+    });
+    context.subscriptions.push(disposable);
+  }
 
   {
     let disposable = vscode.commands.registerCommand("url.encode", () => {
@@ -74,6 +88,43 @@ function formatUrl(text: string): any {
     params: searchs,
     hash: url.hash,
   };
+}
+
+function generateUrl(text: string) {
+  function check(item: any) {
+    let { main, params, hash } = item;
+    if (main === undefined) {
+      return false;
+    }
+    if (params != undefined && typeof params != "object") {
+      return false;
+    }
+    if (hash != undefined && typeof hash != "string") {
+      return false;
+    }
+    return true;
+  }
+
+  function merge(item: any): string {
+    if (!check(item)) {
+      return "";
+    }
+    let { main, params, hash } = item;
+    let url = new URL(main);
+    if (params != undefined) {
+      for (const [key, value] of Object.entries(params)) {
+        let _v = typeof value == "object" ? merge(value) : value;
+        url.searchParams.set(key, _v as string);
+      }
+    }
+    if (hash != undefined) {
+      url.hash = hash;
+    }
+    return url.toString();
+  }
+
+  let json = JSON.parse(text);
+  return merge(json);
 }
 
 function urlEncode(str: string) {
