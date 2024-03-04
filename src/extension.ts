@@ -1,7 +1,5 @@
 import * as vscode from "vscode";
 
-const tab = "    ";
-
 export function activate(context: vscode.ExtensionContext) {
   {
     let disposable = vscode.commands.registerCommand("url.format", () => {
@@ -9,7 +7,7 @@ export function activate(context: vscode.ExtensionContext) {
         editor.edit((builder) => {
           builder.insert(
             editor.selection.end,
-            `\n${JSON.stringify(formatUrl(text, ""), null, 4)}`
+            `\n${JSON.stringify(formatUrl(text), null, 4)}`
           );
         });
       });
@@ -61,14 +59,13 @@ function check(): Promise<{
   });
 }
 
-function formatUrl(text: string, ident: string): any {
-  ident += tab;
+function formatUrl(text: string): any {
   const url = new URL(text);
   const searchs: Record<string, any> = {};
   for (const [key, value] of url.searchParams) {
     var res = value;
     if (isURI(value)) {
-      res = formatUrl(value, ident);
+      res = formatUrl(value);
     }
     searchs[key] = res;
   }
