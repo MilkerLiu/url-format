@@ -3,7 +3,7 @@
   "displayName": "url-format",
   "description": "format url",
   "publisher": "MilkerLiu",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -11,6 +11,7 @@
     "Other"
   ],
   "icon": "icon.png",
+  "repository": "https://github.com/MilkerLiu/url-format.git",
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {

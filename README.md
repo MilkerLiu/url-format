@@ -1,28 +1,28 @@
 # url-format
 
-This is a tool for url
-
-* url format (supporting recursive analysis)
-* url generate
-* url encode
-* url decode
+This is a simple tool for url format
 
 ## How To use?
 
-1. Select the text
+1. Select target text
 2. `CMD + Shift + P`: get the vscode Command Pallttle
 3. Enter the `url:`, get the command, return
+    * Url: Format (Format url to a json)
+    * Url: Generate (Generate url from a json)
+    * Url: Decode
+    * Url: Encode
 
-## Functions
+## Samples
 
-### Url Format
+### format url string to json
 
 ```
 // origin url
 http://www.xxx.com/search?url=http%3A%2F%2Fwww.bbb.com%3Fa%3D1%26b%3D1&a=1
 
-// Url: Format 
-// this a format result (supporting recursive analysis)
+// cmd> Url: Format
+
+// result
 {
     "main": "http://www.xxx.com/search",
     "params": {
@@ -40,29 +40,29 @@ http://www.xxx.com/search?url=http%3A%2F%2Fwww.bbb.com%3Fa%3D1%26b%3D1&a=1
 }
 ```
 
-### Url Generate
+### format json to url
 
 ```
-// Url: Generate 
-// this is text
+// origin json string for url
 {
     "main": "http://www.xxx.com/search",
     "params": {
         "url": {
-            "main": "http://www.bbb.com/",
+            "main": "http://www.bbb.com",
             "params": {
                 "a": "1",
                 "b": "1"
             },
             "hash": ""
-        },
+        }
         "a": "1"
     },
     "hash": ""
 }
+// cmd> Url: Generate
 
-// this is result
-http://www.xxx.com/search?url=http%3A%2F%2Fwww.bbb.com%3Fa%3D1%26b%3D1&a=1
+// result
+http://www.xxx.com/search?url=http%3A%2F%2Fwww.bbb.com%2F%3Fa%3D1%26b%3D1&a=1
 ```
 
 ### Url Encode
@@ -71,7 +71,9 @@ http://www.xxx.com/search?url=http%3A%2F%2Fwww.bbb.com%3Fa%3D1%26b%3D1&a=1
 // origin text
 http://
 
-// Url: Encode
+// cmd> Url: Encode
+
+// result
 http%3A%2F%2F
 ```
 
@@ -81,6 +83,8 @@ http%3A%2F%2F
 // origin text
 http%3A%2F%2F
 
-// Url: Decode
+// cmd> Url: Decode
+
+// result
 http://
 ```
